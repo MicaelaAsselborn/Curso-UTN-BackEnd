@@ -1,6 +1,6 @@
 // Para ejecutar esto y verlo en consola:
 // 1- tsc Clase-03/test.ts
-// 2- node Clase-03/test.js
+// 2- node Clase-03/test.ts
 
 //Typescript
 
