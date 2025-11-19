@@ -12,5 +12,7 @@
 - [📝 Clase 03 - Typescript](./Clase-03/Clase-03-Typescript.md)
 - [📝 Clase 03 - repaso-javascript](./Clase-03/repaso-javascript.md)
 - [📝 Clase 04 - Clases, Propiedades y Objetos](./Clase-04/Clase-04-Clases-Propiedades-Objetos.md)
+- [📝 Clase 05 - Aplicacion Practica en Typescript](./Clase-05/Clase-05-Aplicacion-Practica-Typescript.md)
+- [📝 Clase 06 - Preparando entorno](./Clase-06/Clase-06-Preparando-entorno.md)
 
 > Agregaré más enlaces a medida que se creen nuevas clases.
