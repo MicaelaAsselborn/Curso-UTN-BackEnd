@@ -1,11 +1,11 @@
-# 📖 Clase 6: Introducción a Bases de Datos (PostgreSQL)
+# 📖 Clase 6: Introducción a Bases de Datos (MySQL)
 
 ## 🎯 Objetivos de la Clase
 
 - Comprender qué son las bases de datos relacionales y su importancia en el desarrollo backend
 - Aprender los conceptos fundamentales: tablas, columnas, registros y tipos de datos
 - Entender las relaciones entre tablas en bases de datos relacionales
-- Dominar los tipos de datos disponibles en PostgreSQL
+- Dominar los tipos de datos disponibles en MySQL
 - Aplicar los conceptos aprendidos mediante ejercicios prácticos con SQL
 
 ---
@@ -14,7 +14,7 @@
 
 ### 🔍 Definición
 
-**Una base de datos** es un sistema organizado para almacenar, gestionar y recuperar información de manera eficiente. Las bases de datos relacionales, como PostgreSQL, organizan los datos en tablas que se relacionan entre sí mediante claves, permitiendo almacenar grandes cantidades de información de forma estructurada y accesible.
+**Una base de datos** es un sistema organizado para almacenar, gestionar y recuperar información de manera eficiente. Las bases de datos relacionales, como MySQL, organizan los datos en tablas que se relacionan entre sí mediante claves, permitiendo almacenar grandes cantidades de información de forma estructurada y accesible.
 
 ### 🏗️ Características Principales
 
@@ -28,9 +28,9 @@
 
 - **1970:** Edgar F. Codd propone el modelo relacional de bases de datos
 - **1986:** Se estandariza el lenguaje SQL (Structured Query Language)
-- **1989:** Se lanza PostgreSQL como proyecto de código abierto
-- **1996:** PostgreSQL se convierte en una base de datos completamente funcional
-- **2025:** PostgreSQL es una de las bases de datos relacionales más populares y robustas del mundo
+- **1995:** Se lanza MySQL como sistema de gestión de bases de datos relacional de código abierto
+- **2000:** MySQL se convierte en una de las bases de datos más populares del mundo
+- **2025:** MySQL es una de las bases de datos relacionales más utilizadas, especialmente en aplicaciones web
 
 ---
 
@@ -71,7 +71,7 @@ Una **tabla** es una estructura bidimensional que organiza los datos en filas y 
 ```sql
 -- Crear una tabla de usuarios
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -90,12 +90,12 @@ Las **columnas** (también llamadas campos o atributos) definen el tipo de datos
 
 ```sql
 CREATE TABLE productos (
-    id SERIAL PRIMARY KEY,                    -- Columna de tipo SERIAL (auto-incremental)
-    nombre VARCHAR(200) NOT NULL,             -- Columna de texto, obligatoria
-    precio DECIMAL(10, 2) NOT NULL,           -- Columna numérica decimal
-    descripcion TEXT,                         -- Columna de texto largo, opcional
-    stock INTEGER DEFAULT 0,                  -- Columna numérica con valor por defecto
-    activo BOOLEAN DEFAULT TRUE               -- Columna booleana
+    id INT AUTO_INCREMENT PRIMARY KEY,                    -- Columna de tipo INT (auto-incremental)
+    nombre VARCHAR(200) NOT NULL,                         -- Columna de texto, obligatoria
+    precio DECIMAL(10, 2) NOT NULL,                      -- Columna numérica decimal
+    descripcion TEXT,                                     -- Columna de texto largo, opcional
+    stock INT DEFAULT 0,                                  -- Columna numérica con valor por defecto
+    activo BOOLEAN DEFAULT TRUE                           -- Columna booleana
 );
 ```
 
@@ -125,53 +125,54 @@ VALUES
 
 ### 📝 Tipos de Datos
 
-Los **tipos de datos** definen qué tipo de información puede almacenar una columna. PostgreSQL ofrece una amplia variedad de tipos de datos:
+Los **tipos de datos** definen qué tipo de información puede almacenar una columna. MySQL ofrece una amplia variedad de tipos de datos:
 
 **Tipos de texto:**
 
 - `VARCHAR(n)`: Texto de longitud variable (máximo n caracteres)
-- `TEXT`: Texto de longitud ilimitada
+- `TEXT`: Texto de longitud variable (hasta 65,535 caracteres)
 - `CHAR(n)`: Texto de longitud fija (exactamente n caracteres)
+- `LONGTEXT`: Texto de longitud variable (hasta 4GB)
 
 **Tipos numéricos:**
 
-- `INTEGER` o `INT`: Números enteros
-- `SERIAL`: Entero auto-incremental (común para IDs)
+- `INT` o `INTEGER`: Números enteros (32 bits)
+- `BIGINT`: Números enteros grandes (64 bits)
+- `AUTO_INCREMENT`: Entero auto-incremental (común para IDs)
 - `DECIMAL(p, s)`: Números decimales con precisión (p dígitos totales, s decimales)
-- `REAL`: Números de punto flotante de precisión simple
-- `DOUBLE PRECISION`: Números de punto flotante de doble precisión
+- `FLOAT`: Números de punto flotante de precisión simple
+- `DOUBLE`: Números de punto flotante de doble precisión
 
 **Tipos de fecha y hora:**
 
 - `DATE`: Fecha (año, mes, día)
 - `TIME`: Hora (horas, minutos, segundos)
-- `TIMESTAMP`: Fecha y hora combinadas
-- `TIMESTAMPTZ`: Fecha y hora con zona horaria
+- `DATETIME`: Fecha y hora combinadas
+- `TIMESTAMP`: Fecha y hora con zona horaria automática
+- `YEAR`: Año (1 o 4 dígitos)
 
 **Tipos booleanos:**
 
-- `BOOLEAN`: Valores TRUE o FALSE
+- `BOOLEAN` o `BOOL`: Valores TRUE o FALSE (equivalente a TINYINT(1))
 
 **Tipos especiales:**
 
-- `JSON`: Datos en formato JSON
-- `JSONB`: JSON binario (más eficiente)
-- `UUID`: Identificadores únicos universales
-- `ARRAY`: Arrays de cualquier tipo
+- `JSON`: Datos en formato JSON (MySQL 5.7+)
+- `ENUM`: Lista de valores predefinidos
+- `SET`: Conjunto de valores predefinidos
 
 **Ejemplo de uso de diferentes tipos:**
 
 ```sql
 CREATE TABLE ejemplo_tipos (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
-    edad INTEGER,
+    edad INT,
     salario DECIMAL(10, 2),
     fecha_nacimiento DATE,
-    hora_registro TIMESTAMP,
+    hora_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     activo BOOLEAN,
-    preferencias JSON,
-    tags TEXT[]
+    preferencias JSON
 );
 ```
 
@@ -185,15 +186,15 @@ Cada registro de una tabla se relaciona con exactamente un registro de otra tabl
 ```sql
 -- Tabla de usuarios
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
 -- Tabla de perfiles (relación 1:1 con usuarios)
 CREATE TABLE perfiles (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER UNIQUE NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNIQUE NOT NULL,
     biografia TEXT,
     foto_url VARCHAR(255),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -206,14 +207,14 @@ Un registro de una tabla se relaciona con múltiples registros de otra tabla.
 ```sql
 -- Tabla de usuarios
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
 -- Tabla de pedidos (relación 1:N: un usuario tiene muchos pedidos)
 CREATE TABLE pedidos (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10, 2),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -226,20 +227,20 @@ Múltiples registros de una tabla se relacionan con múltiples registros de otra
 ```sql
 -- Tabla de estudiantes
 CREATE TABLE estudiantes (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
 -- Tabla de cursos
 CREATE TABLE cursos (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
 -- Tabla intermedia para relación N:M
 CREATE TABLE estudiantes_cursos (
-    estudiante_id INTEGER NOT NULL,
-    curso_id INTEGER NOT NULL,
+    estudiante_id INT NOT NULL,
+    curso_id INT NOT NULL,
     fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (estudiante_id, curso_id),
     FOREIGN KEY (estudiante_id) REFERENCES estudiantes(id),
@@ -257,17 +258,17 @@ CREATE TABLE estudiantes_cursos (
 
 **Pasos a seguir:**
 
-1. **Conectarse a PostgreSQL** (asumiendo que ya tienes el entorno configurado):
+1. **Conectarse a MySQL** (asumiendo que ya tienes el entorno configurado):
 
 ```bash
-docker exec -it curso_postgres psql -U postgres -d curso_backend
+docker exec -it curso_mysql mysql -u root -proot123 curso_backend
 ```
 
 2. **Crear una tabla de usuarios:**
 
 ```sql
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -278,10 +279,10 @@ CREATE TABLE usuarios (
 
 ```sql
 CREATE TABLE productos (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(200) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
-    stock INTEGER DEFAULT 0,
+    stock INT DEFAULT 0,
     activo BOOLEAN DEFAULT TRUE
 );
 ```
@@ -290,8 +291,8 @@ CREATE TABLE productos (
 
 ```sql
 CREATE TABLE pedidos (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -391,9 +392,9 @@ Crea una base de datos completa para un sistema de blog con las siguientes carac
 
 ### 🔗 Enlaces Útiles
 
-- [Documentación oficial de PostgreSQL](https://www.postgresql.org/docs/) - Guía completa de referencia para PostgreSQL
+- [Documentación oficial de MySQL](https://dev.mysql.com/doc/) - Guía completa de referencia para MySQL
 - [Docker Documentation](https://docs.docker.com/) - Documentación oficial de Docker y Docker Compose
-- [PostgreSQL Tutorial](https://www.postgresqltutorial.com/) - Tutorial interactivo para aprender PostgreSQL
+- [MySQL Tutorial](https://www.mysqltutorial.org/) - Tutorial interactivo para aprender MySQL
 - [SQLBolt](https://sqlbolt.com/) - Ejercicios interactivos para aprender SQL
 
 ### 📖 Conceptos para Investigar
@@ -407,10 +408,10 @@ Crea una base de datos completa para un sistema de blog con las siguientes carac
 
 ## ❓ Preguntas Frecuentes
 
-### ¿Cuál es la diferencia entre VARCHAR y TEXT en PostgreSQL?
+### ¿Cuál es la diferencia entre VARCHAR y TEXT en MySQL?
 
-- **VARCHAR(n):** Tiene un límite máximo de caracteres (n). Es más eficiente cuando conoces el tamaño aproximado del texto. PostgreSQL optimiza el almacenamiento.
-- **TEXT:** No tiene límite de longitud. Es más flexible pero puede ser menos eficiente para textos muy cortos.
+- **VARCHAR(n):** Tiene un límite máximo de caracteres (n). Es más eficiente cuando conoces el tamaño aproximado del texto. MySQL optimiza el almacenamiento.
+- **TEXT:** No tiene límite de longitud fijo (hasta 65,535 caracteres). Es más flexible pero puede ser menos eficiente para textos muy cortos.
 - **Recomendación:** Usa VARCHAR cuando sepas el tamaño máximo (ej: email, teléfono). Usa TEXT para contenido variable (ej: descripciones, artículos).
 
 ### ¿Qué es una clave foránea y por qué es importante?
@@ -434,10 +435,11 @@ INSERT INTO pedidos (usuario_id, total) VALUES (999, 100.00);
 
 ## 🎉 ¡Bases de Datos Dominadas!
 
-¡Excelente trabajo! Ya conoces los conceptos fundamentales de bases de datos relacionales, cómo estructurar datos en tablas, crear relaciones entre ellas, y trabajar con diferentes tipos de datos en PostgreSQL. En la próxima clase profundizaremos en el modelado de datos y aprenderemos a diseñar esquemas de base de datos más complejos.
+¡Excelente trabajo! Ya conoces los conceptos fundamentales de bases de datos relacionales, cómo estructurar datos en tablas, crear relaciones entre ellas, y trabajar con diferentes tipos de datos en MySQL. En la próxima clase profundizaremos en el modelado de datos y aprenderemos a diseñar esquemas de base de datos más complejos.
 
 **Recuerda:** La práctica constante con SQL y el diseño de bases de datos es clave para dominar el desarrollo backend. Experimenta creando diferentes tipos de relaciones y consultas. ¡Sigue practicando! 🚀
 
 ---
 
-_📧 **Contacto:** Si tienes dudas sobre bases de datos relacionales o PostgreSQL, no dudes en consultar durante la clase o por los canales de comunicación establecidos._
+_📧 **Contacto:** Si tienes dudas sobre bases de datos relacionales o MySQL, no dudes en consultar durante la clase o por los canales de comunicación establecidos._
+
