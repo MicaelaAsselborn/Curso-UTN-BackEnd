@@ -303,6 +303,7 @@ db.books.find({ authorId: ObjectId('REEMPLAZAR') }).sort({ pages: -1 });
 
 <details>
 <summary>🔍 Ver Solución</summary>
+
 ```javascript
 const page = 2;
 const size = 5;
@@ -312,6 +313,7 @@ db.books
   .skip((page - 1) * size)
   .limit(size);
 ```
+
 </details>
 
 ---
