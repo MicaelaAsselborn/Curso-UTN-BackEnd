@@ -1,8 +1,15 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
+import { engine } from 'express-handlebars';
+import viewsRouter from './routes/views.routes';
 
 const app = express();
 const PORT = 3000;
+
+// Configuración del motor de plantillas Handlebars
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware para servir archivos estáticos desde la carpeta "public"
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -32,6 +39,9 @@ app.get('/api', (req: Request, res: Response) => {
 app.get('/api/saludo', (req: Request, res: Response) => {
   res.json({ mensaje: 'Hola desde la API 🚀' });
 });
+
+// Rutas de vistas
+app.use('/handlebars', viewsRouter);
 
 // Iniciar el servidor HTTP
 app.listen(PORT, () => {
