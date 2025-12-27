@@ -27,5 +27,7 @@
 - [📝 Clase 12 - Tutorial CLI con TypeScript](./Clase-12/Tutorial-CLI-TypeScript.md)
 - [📝 Clase 13 - Intro a NodeJS](./Clase-13/Clase-13-Intro-a-NodeJS.md)
 - [📝 Clase 14 - Express Archivos Estáticos](./Clase-14/Clase-14-Express-Archivos-Estáticos.md)
+- [📝 Clase 15 - Routing Vistas Handlebars](./Clase-15/Clase-15-Routing-Vistas-Handlebars.md)
+- [📝 Clase 16 - Organizacion de Proyecto Envio de Email](./Clase-16/Clase-16-Organizacion-de-Proyecto-Envio-de-Email.md)
 
 > Agregaré más enlaces a medida que se creen nuevas clases.
