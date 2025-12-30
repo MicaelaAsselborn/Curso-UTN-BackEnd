@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import { engine } from 'express-handlebars';
+import 'dotenv/config';
 
 // Importar las rutas
 import usersRouter from './routes/users.routes';
