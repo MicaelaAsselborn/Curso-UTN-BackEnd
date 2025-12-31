@@ -30,5 +30,6 @@
 - [📝 Clase 15 - Routing Vistas Handlebars](./Clase-15/Clase-15-Routing-Vistas-Handlebars.md)
 - [📝 Clase 16 - Organizacion de Proyecto Envio de Email](./Clase-16/Clase-16-Organizacion-de-Proyecto-Envio-de-Email.md)
 - [📝 Clase 16.5 - MailerSend y Handlebars](./Clase-16/Clase-16.5-MailerSend-Handlebars.md)
+- [📝 Clase 17 - Conexion a MySQL](./Clase-17/Clase-17-Conexion-MySQL.md)
 
 > Agregaré más enlaces a medida que se creen nuevas clases.
