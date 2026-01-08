@@ -35,6 +35,12 @@ app.get('/admin', authenticate, authorize(['admin']), (req, res) => {
   });
 });
 
+app.get('/metrics', authenticate, authorize(['admin']), (req, res) => {
+  res.json({
+    message: 'Métricas del sistema',
+  });
+});
+
 app.get('/api/saludo', (req: Request, res: Response) => {
   res.json({ mensaje: 'Hola desde la API 🚀' });
 });
