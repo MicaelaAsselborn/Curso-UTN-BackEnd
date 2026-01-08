@@ -31,5 +31,7 @@
 - [📝 Clase 16 - Organizacion de Proyecto Envio de Email](./Clase-16/Clase-16-Organizacion-de-Proyecto-Envio-de-Email.md)
 - [📝 Clase 16.5 - MailerSend y Handlebars](./Clase-16/Clase-16.5-MailerSend-Handlebars.md)
 - [📝 Clase 17 - Conexion a MySQL](./Clase-17/Clase-17-Conexion-MySQL.md)
+- [📝 Clase 18.1 - Autenticacion-Autorizacion](./Clase-18/Clase-18.1-Autenticacion-Autorizacion.md)
+- [📝 Clase 18.2 - Roles-y-Permisos-Dinamicos](./Clase-18/Clase-18.2-Roles-y-Permisos-Dinamicos.md)
 
 > Agregaré más enlaces a medida que se creen nuevas clases.
