@@ -9,9 +9,15 @@ import validateDto from '../middlewares/dto.middleware';
 
 const router: Router = Router();
 
-router.get('/', categoriesController.getAll);
+router.get('/', authenticate, categoriesController.getAll);
 router.get('/:id', categoriesController.getById);
 
+// Create Category
+// viene desde el index.ts de routes
+// evalua el token de autenticacion
+// evalua el rol del usuario
+// valida el dto
+// llama al controller para que siga el flujo
 router.post(
   '/',
   authenticate,

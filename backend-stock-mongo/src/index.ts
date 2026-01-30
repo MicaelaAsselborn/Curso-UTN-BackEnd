@@ -7,6 +7,9 @@ import categoriesRoutes from './routes/categories.routes';
 import productsRoutes from './routes/product.routes';
 import { authenticate, authorize } from './middlewares/auth.middleware';
 import { connectDB } from './config/database';
+import { errorHandler } from './middlewares/error.middleware';
+import { AppError } from './types/appError';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +47,13 @@ app.get('/api/saludo', (req: Request, res: Response) => {
 
 app.use('/api/categoria', categoriesRoutes);
 app.use('/api/producto', productsRoutes);
+
+app.get('/api/test-error', (req, res, next) => {
+  next(new AppError('Este es un error de prueba!', 418));
+});
+
+// Middleware de manejo de errores global (debe ser el último)
+app.use(errorHandler);
 
 // Conectar a MongoDB y luego iniciar el servidor HTTP
 connectDB().then(() => {

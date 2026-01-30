@@ -12,9 +12,11 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 export const authenticate = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+
+  console.log('Token recibido en authenticate:', token);
 
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
