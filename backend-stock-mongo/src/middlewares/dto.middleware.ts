@@ -20,11 +20,8 @@ const validateDto = (req: Request, res: Response, next: NextFunction) => {
   }
 
   console.log('Errores de validación:', errors.array());
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
 
-  next();
+  return res.status(400).json({ errors: errors.array() });
 };
 
 export default validateDto;
